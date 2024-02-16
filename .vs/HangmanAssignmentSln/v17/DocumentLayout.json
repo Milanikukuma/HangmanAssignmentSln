@@ -1,0 +1,75 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\netprojects\\HangmanAssignmentSln\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7ACCEEFE-A374-426C-AE45-138C90F8661A}|HangmanAssignment\\HangmanAssignment.csproj|c:\\netprojects\\hangmanassignmentsln\\hangmanassignment\\hangmangamepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7ACCEEFE-A374-426C-AE45-138C90F8661A}|HangmanAssignment\\HangmanAssignment.csproj|solutionrelative:hangmanassignment\\hangmangamepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7ACCEEFE-A374-426C-AE45-138C90F8661A}|HangmanAssignment\\HangmanAssignment.csproj|c:\\netprojects\\hangmanassignmentsln\\hangmanassignment\\hangmangamepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7ACCEEFE-A374-426C-AE45-138C90F8661A}|HangmanAssignment\\HangmanAssignment.csproj|solutionrelative:hangmanassignment\\hangmangamepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7ACCEEFE-A374-426C-AE45-138C90F8661A}|HangmanAssignment\\HangmanAssignment.csproj|c:\\netprojects\\hangmanassignmentsln\\hangmanassignment\\resources\\images\\hang8.png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{7ACCEEFE-A374-426C-AE45-138C90F8661A}|HangmanAssignment\\HangmanAssignment.csproj|solutionrelative:hangmanassignment\\resources\\images\\hang8.png||{58961B49-13E0-48C0-9258-13CBC4D40279}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HangmanGamePage.xaml",
+              "DocumentMoniker": "C:\\netprojects\\HangmanAssignmentSln\\HangmanAssignment\\HangmanGamePage.xaml",
+              "RelativeDocumentMoniker": "HangmanAssignment\\HangmanGamePage.xaml",
+              "ToolTip": "C:\\netprojects\\HangmanAssignmentSln\\HangmanAssignment\\HangmanGamePage.xaml",
+              "RelativeToolTip": "HangmanAssignment\\HangmanGamePage.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAowAwAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-02-15T12:28:43.565Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "hang8.png",
+              "DocumentMoniker": "C:\\netprojects\\HangmanAssignmentSln\\HangmanAssignment\\Resources\\Images\\hang8.png",
+              "RelativeDocumentMoniker": "HangmanAssignment\\Resources\\Images\\hang8.png",
+              "ToolTip": "C:\\netprojects\\HangmanAssignmentSln\\HangmanAssignment\\Resources\\Images\\hang8.png",
+              "RelativeToolTip": "HangmanAssignment\\Resources\\Images\\hang8.png",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2024-02-16T08:31:57.506Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HangmanGamePage.xaml.cs",
+              "DocumentMoniker": "C:\\netprojects\\HangmanAssignmentSln\\HangmanAssignment\\HangmanGamePage.xaml.cs",
+              "RelativeDocumentMoniker": "HangmanAssignment\\HangmanGamePage.xaml.cs",
+              "ToolTip": "C:\\netprojects\\HangmanAssignmentSln\\HangmanAssignment\\HangmanGamePage.xaml.cs",
+              "RelativeToolTip": "HangmanAssignment\\HangmanGamePage.xaml.cs",
+              "ViewState": "AQIAAGQAAAAAAAAAAADwv4oAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-15T12:29:03.535Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

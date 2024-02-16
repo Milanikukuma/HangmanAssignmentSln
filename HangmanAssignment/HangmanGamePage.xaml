@@ -1,17 +1,13 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HangmanAssignment.HangmanGamePage"
-       Title="MAUI Hangman Assignment">
-    <ScrollView>
+             Title="Hangman Game">
 
-        <VerticalStackLayout>
-            <Label Text="Welcome to Hangman" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontAttributes="Bold" FontSize="40"/>
-            <Image Margin="40" x:Name="hangmanImage" Source="hang1.png" HorizontalOptions="Center"/>
-            <Label x:Name="wordLabel" FontAttributes="Bold" FontSize="30" HorizontalOptions="Center" Margin="40" Text="" />
-            <Entry x:Name="guessEntry" FontSize="30" HorizontalOptions="Center" Margin="40" Placeholder="Enter your guess" TextChanged="OnEntryTextChanged"/>
-            <Button Text="Guess" Clicked="OnGuessButtonClicked"/>
-        </VerticalStackLayout>
-    </ScrollView>
+    <StackLayout>
+        <Label x:Name="WordLabel" HorizontalTextAlignment="Center" FontSize="Large" Margin="20,20,20,0"/>
+        <Image x:Name="HangmanImage" Margin="0,20,0,0" HeightRequest="200"/>
+        <Entry x:Name="GuessEntry" Placeholder="Try Guessing A letter" HorizontalOptions="FillAndExpand" Margin="20,20,20,0"/>
+        <Button Text="Confirm Guess" Clicked="OnGuessClicked" HorizontalOptions="Center" Margin="20"/>
+    </StackLayout>
 
 </ContentPage>

@@ -1,196 +1,138 @@
+using Microsoft.Maui.Controls;
 using System;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace HangmanAssignment
 {
     public partial class HangmanGamePage : ContentPage
     {
-        private int clickCount = 0;
-        private const int MaxInputLength = 11;
-        private int incorrectAttempts = 0;
-        private string[] wordsArray;
-        private string currentWord;
+        private List<string> wordList = new List<string>
+        {
+            "tape",
+            "train",
+            "purple",
+            "animal",
+            "milani",
+            "oxford"
+        };
+
+        private string chosenWord = "";
+        private string guessedWord = "";
+        private int maxIncorrectGuesses = 8; // Maximum incorrect guesses allowed
+        private int remainingIncorrectGuesses;
+        private string guessedLetters = "";
         private int currentHangmanImageIndex = 1;
+        private bool gameOver = false;
 
         public HangmanGamePage()
         {
             InitializeComponent();
-            wordsArray = new string[] { "apple", "banana", "orange", "grape", "kiwi" };
-
-            SetNextWord();
-            _ = AnimateWord();
+            StartNewGame();
         }
 
-        private void SetNextWord()
+        private void StartNewGame()
         {
-            clickCount = 0;
-            incorrectAttempts = 0;
+            chosenWord = SelectRandomWord();
+            guessedWord = HideLetters(chosenWord);
+            remainingIncorrectGuesses = maxIncorrectGuesses;
+            currentHangmanImageIndex = 1;
+            gameOver = false;
 
-            currentWord = GetNextWord();
-            wordLabel.Text = string.Empty;
+            WordLabel.Text = guessedWord;
+            HangmanImage.Source = $"hang{currentHangmanImageIndex}.png";
         }
 
-        private string GetNextWord()
+        private string SelectRandomWord()
         {
+            return wordList[new Random().Next(wordList.Count)];
+        }
+
+        private string HideLetters(string word)
+        {
+            // Hide 30% of the letters
+            int lettersToHide = (int)(word.Length * 0.3);
+            List<int> indicesToHide = new List<int>();
+
             Random random = new Random();
-            int index = random.Next(wordsArray.Length);
-            return wordsArray[index];
-        }
-
-        private async Task AnimateWord()
-        {
-            string displayWord = GetDisplayWord(currentWord);
-
-            for (int i = 0; i < currentWord.Length; i++)
+            while (indicesToHide.Count < lettersToHide)
             {
-                displayWord = displayWord.Substring(0, i) + currentWord[i] + displayWord.Substring(i + 1);
-                wordLabel.Text = displayWord;
-
-                await Task.Delay(5);
-            }
-
-            displayWord = GetDisplayWordWithTwoMissing(currentWord);
-            wordLabel.Text = displayWord;
-        }
-
-        private string GetDisplayWord(string word)
-        {
-            char[] displayChars = new char[word.Length];
-            for (int i = 0; i < word.Length; i++)
-            {
-                if (char.IsLetter(word[i]))
+                int index = random.Next(word.Length);
+                if (!indicesToHide.Contains(index))
                 {
-                    displayChars[i] = (i % 3 == 0) ? word[i] : '_';
-                }
-                else
-                {
-                    displayChars[i] = word[i];
+                    indicesToHide.Add(index);
                 }
             }
 
-            return new string(displayChars);
+            char[] hiddenWordArray = word.ToCharArray();
+            foreach (int index in indicesToHide)
+            {
+                hiddenWordArray[index] = '_';
+            }
+
+            return new string(hiddenWordArray);
         }
 
-        private string GetDisplayWordWithTwoMissing(string word)
+        private void OnGuessClicked(object sender, EventArgs e)
         {
-            char[] displayChars = new char[word.Length];
-            int missingCount = 0;
-
-            for (int i = 0; i < word.Length; i++)
+            if (gameOver)
             {
-                if (char.IsLetter(word[i]))
+                // Game is over, don't allow further guesses
+                return;
+            }
+
+            if (GuessEntry.Text.Length == 0)
+            {
+                return;
+            }
+
+            char guess = GuessEntry.Text.ToLower()[0];
+
+            if (guessedLetters.Contains(guess))
+            {
+                return;
+            }
+
+            guessedLetters += guess;
+
+            if (chosenWord.Contains(guess))
+            {
+                char[] guessedWordArray = guessedWord.ToCharArray();
+                for (int i = 0; i < chosenWord.Length; i++)
                 {
-                    if (missingCount < 2)
+                    if (chosenWord[i] == guess)
                     {
-                        displayChars[i] = '_';
-                        missingCount++;
-                    }
-                    else
-                    {
-                        displayChars[i] = word[i];
+                        guessedWordArray[i] = guess;
                     }
                 }
-                else
+                guessedWord = new string(guessedWordArray);
+                WordLabel.Text = guessedWord;
+            }
+            else
+            {
+                remainingIncorrectGuesses--;
+
+                currentHangmanImageIndex++;
+                if (remainingIncorrectGuesses == 0)
                 {
-                    displayChars[i] = word[i];
-                }
-            }
-
-            return new string(displayChars);
-        }
-
-        private void OnGuessButtonClicked(object sender, EventArgs e)
-        {
-            clickCount++;
-
-            if (clickCount == 11)
-            {
-                ((Button)sender).IsEnabled = false;
-                DisplayGameResultAlert();
-            }
-            else
-            {
-                _ = CheckWordCorrectnessAsync();
-            }
-        }
-
-        private async Task CheckWordCorrectnessAsync()
-        {
-            if (guessEntry.Text.ToUpper() == currentWord.ToUpper())
-            {
-                await DisplayAlert("Congratulations", $"You guessed it right! The word is {currentWord}. Let's move on to the next word.", "OK").ConfigureAwait(false);
-                SetNextWord();
-                await AnimateWord();
-
-                currentHangmanImageIndex = 1;
-
-                // Clear the entry for the next word
-                guessEntry.Text = string.Empty;
-            }
-            else
-            {
-                HandleIncorrectGuess();
-                UpdateHangmanImage();
-            }
-        }
-
-        private void UpdateHangmanImage()
-        {
-            int maxHangmanImages = 6;
-            currentHangmanImageIndex = (currentHangmanImageIndex % maxHangmanImages) + 1;
-            hangmanImage.Source = $"hang{currentHangmanImageIndex}.png";
-        }
-
-        private void HandleIncorrectGuess()
-        {
-            incorrectAttempts++;
-
-            if (incorrectAttempts == 11)
-            {
-                DisplayGameResultAlert();
-            }
-            else
-            {
-                DisplayAlert("Incorrect Guess", "Try again! You can do it!", "OK");
-            }
-        }
-
-        private void OnEntryTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (e.NewTextValue.Length > MaxInputLength)
-            {
-                guessEntry.IsEnabled = false;
-
-                if (guessEntry.Text.ToUpper() == currentWord.ToUpper())
-                {
-                    DisplayAlert("Congratulations", "You guessed it right! Let's move on to the next word.", "OK");
-                    SetNextWord();
-                    _ = AnimateWord();
-                    currentHangmanImageIndex = 1;
-                    guessEntry.Text = string.Empty; // Clear the entry for the next word
+                    // All hangman images displayed, end the game
+                    DisplayAlert("Game Over", $"The word was: {chosenWord}", "OK");
+                    StartNewGame();
+                    gameOver = true; // Set game over flag
                 }
                 else
                 {
-                    HandleIncorrectGuess();
+                    HangmanImage.Source = $"hang{currentHangmanImageIndex}.png";
                 }
             }
-            else
-            {
-                guessEntry.IsEnabled = true;
-            }
-        }
 
-        private void DisplayGameResultAlert()
-        {
-            if (incorrectAttempts == 11)
+            if (guessedWord == chosenWord)
             {
-                DisplayAlert("Game Over", "You have died in the game", "OK");
+                DisplayAlert("Congratulations!", $"You guessed the word: {chosenWord}", "OK");
+                StartNewGame();
+                gameOver = true; // Set game over flag
             }
-            else
-            {
-                DisplayAlert("Game Over", "Congratulations! You have survived the game", "OK");
-            }
+
+            GuessEntry.Text = "";
         }
     }
 }
